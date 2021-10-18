@@ -46,7 +46,7 @@
                     {},
                     {
                         rows: [
-                            { template: `version 703 v1.4`, autoheight: true },
+                            { template: `version 703 v1.2`, autoheight: true },
                             { view: "pdfbar", id: "toolbar" },
                             {
                                 view: "pdfviewer",
@@ -62,8 +62,8 @@
                                                 const blob = new Blob([data], { type: "application/pdf" });
 
 
-                                                //Fourth test
-                                                iosDownload(data, 'test', "application/pdf");
+                                                // Fourth test
+                                                // iosDownload(data, 'test', "application/pdf");
 
 
                                                 //Third test
@@ -79,13 +79,13 @@
 
 
                                                 // Second test
-                                                // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
-                                                // var a = window.document.createElement("a");
-                                                // a.href = urlObj;
-                                                // a.download = "test.pdf";
-                                                // document.body.appendChild(a);
-                                                // a.click();
-                                                // document.body.removeChild(a);
+                                                const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+                                                var a = window.document.createElement("a");
+                                                a.href = urlObj;
+                                                a.download = "test.pdf";
+                                                document.body.appendChild(a);
+                                                a.click();
+                                                document.body.removeChild(a);
 
                                                 // First test
                                                 // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
