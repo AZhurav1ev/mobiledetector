@@ -14,28 +14,28 @@
     <script src="browser.js"></script>
     <script src="pdfdoc.js"></script>
     <script>
-        function createDownloadLink(data, filename, mimetype) {
-            if (!data) return;
-            var blob = data.constructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
+        // function createDownloadLink(data, filename, mimetype) {
+        //     if (!data) return;
+        //     var blob = data.varructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
 
-            if (navigator.msSaveBlob) {
-                navigator.msSaveBlob(blob, filename);
-                return;
-            }
+        //     if (navigator.msSaveBlob) {
+        //         navigator.msSaveBlob(blob, filename);
+        //         return;
+        //     }
 
-            var lnk = document.createElement('a'),
-                url = window.URL,
-                objectURL;
+        //     var lnk = document.createElement('a'),
+        //         url = window.URL,
+        //         objectURL;
 
-            if (mimetype) {
-                lnk.type = mimetype;
-            }
+        //     if (mimetype) {
+        //         lnk.type = mimetype;
+        //     }
 
-            lnk.download = filename || 'untitled';
-            lnk.href = objectURL = url.createObjectURL(blob);
-            lnk.dispatchEvent(new MouseEvent('click'));
-            setTimeout(url.revokeObjectURL.bind(url, objectURL));
-        }
+        //     lnk.download = filename || 'untitled';
+        //     lnk.href = objectURL = url.createObjectURL(blob);
+        //     lnk.dispatchEvent(new MouseEvent('click'));
+        //     setTimeout(url.revokeObjectURL.bind(url, objectURL));
+        // }
     </script>
 
 
@@ -46,7 +46,7 @@
                     {},
                     {
                         rows: [
-                            { template: `version 703 v1.4v1.4`, autoheight: true },
+                            { template: `version 703 v1.2`, autoheight: true },
                             { view: "pdfbar", id: "toolbar" },
                             {
                                 view: "pdfviewer",
@@ -54,12 +54,12 @@
                                 toolbar: "toolbar",
                                 on: {
                                     onAfterLoad() {
-                                        const downloadButton = $$("toolbar").$view.querySelector('.webix_scroll_cont').lastChild;
+                                        var downloadButton = $$("toolbar").$view.querySelector('.webix_scroll_cont').lastChild;
                                         webix.event(downloadButton, 'click', (e) => {
                                             e.stopImmediatePropagation();
                                             $$("pdf").$pdfDoc.getData().then((data) => {
                                                 if (!data) return;
-                                                const blob = new Blob([data], { type: "application/pdf" });
+                                                var blob = new Blob([data], { type: "application/pdf" });
 
 
                                                 //Fourth test
@@ -79,7 +79,7 @@
 
 
                                                 // Second test
-                                                const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+                                                var urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
                                                 var a = window.document.createElement("a");
                                                 a.href = urlObj;
                                                 a.download = "test.pdf";
@@ -88,7 +88,7 @@
                                                 document.body.removeChild(a);
 
                                                 // First test
-                                                // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+                                                // var urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
                                                 // multiDownload([urlObj], { rename: () => "test" });
                                             });
                                         }, true);
