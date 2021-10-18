@@ -14,13 +14,39 @@
     <script src="browser.js"></script>
     <script src="pdfdoc.js"></script>
     <script>
+        function iosDownload(data, filename, mimetype) {
+            if (!data) return;
+            var blob = data.constructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
+
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, filename);
+                return;
+            }
+
+            var lnk = document.createElement('a'),
+                url = window.URL,
+                objectURL;
+
+            if (mimetype) {
+                lnk.type = mimetype;
+            }
+
+            lnk.download = filename || 'untitled';
+            lnk.href = objectURL = url.createObjectURL(blob);
+            lnk.dispatchEvent(new MouseEvent('click'));
+            setTimeout(url.revokeObjectURL.bind(url, objectURL));
+        }
+    </script>
+
+
+    <script>
         webix.ready(function () {
             webix.ui({
                 cols: [
                     {},
                     {
                         rows: [
-                            { template: `version 703 v1.3`, autoheight: true },
+                            { template: `version 703 v1.4`, autoheight: true },
                             { view: "pdfbar", id: "toolbar" },
                             {
                                 view: "pdfviewer",
@@ -35,16 +61,21 @@
                                                 if (!data) return;
                                                 const blob = new Blob([data], { type: "application/pdf" });
 
-                                                //Third test
-                                                let link = document.createElement('a'),
-                                                    url = window.URL,
-                                                    objectURL;
 
-                                                link.type = "application/pdf";
-                                                link.download = 'test';
-                                                link.href = objectURL = url.createObjectURL(blob);
-                                                link.dispatchEvent(new MouseEvent('click'));
-                                                setTimeout(url.revokeObjectURL.bind(url, objectURL));
+                                                //Fourth test
+                                                iosDownload(data, 'test', "application/pdf");
+
+
+                                                //Third test
+                                                // let link = document.createElement('a'),
+                                                //     url = window.URL,
+                                                //     objectURL;
+
+                                                // link.type = "application/pdf";
+                                                // link.download = 'test';
+                                                // link.href = objectURL = url.createObjectURL(blob);
+                                                // link.dispatchEvent(new MouseEvent('click'));
+                                                // setTimeout(url.revokeObjectURL.bind(url, objectURL));
 
 
                                                 // Second test
