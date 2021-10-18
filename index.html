@@ -16,28 +16,43 @@
     <script>
         webix.ready(function () {
             webix.ui({
-                rows: [
-                    { template: `version 703`, autoheight: true },
-                    { view: "pdfbar", id: "toolbar" },
+                cols: [
+                    {},
                     {
-                        view: "pdfviewer",
-                        id: "pdf",
-                        toolbar: "toolbar",
-                        on: {
-                            onAfterLoad() {
-                                const downloadButton = $$("toolbar").$view.querySelector('.webix_scroll_cont').lastChild;
-                                webix.event(downloadButton, 'click', (e) => {
-                                    e.stopImmediatePropagation();
-                                    $$("pdf").$pdfDoc.getData().then((data) => {
-                                        if (!data) return;
-                                        const blob = new Blob([data], { type: "application/pdf" });
-                                        const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
-                                        multiDownload([urlObj], { rename: () => "test" });
-                                    });
-                                }, true);
-                            }
-                        }
-                    }
+                        rows: [
+                            { template: `version 703 v1.2`, autoheight: true },
+                            { view: "pdfbar", id: "toolbar" },
+                            {
+                                view: "pdfviewer",
+                                id: "pdf",
+                                toolbar: "toolbar",
+                                on: {
+                                    onAfterLoad() {
+                                        const downloadButton = $$("toolbar").$view.querySelector('.webix_scroll_cont').lastChild;
+                                        webix.event(downloadButton, 'click', (e) => {
+                                            e.stopImmediatePropagation();
+                                            $$("pdf").$pdfDoc.getData().then((data) => {
+                                                if (!data) return;
+                                                const blob = new Blob([data], { type: "application/pdf" });
+                                                const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+
+                                                var a = window.document.createElement("a");
+                                                a.href = urlObj;
+                                                a.download = "test.pdf";
+                                                document.body.appendChild(a);
+                                                a.click();
+                                                document.body.removeChild(a);
+
+
+                                                // multiDownload([urlObj], { rename: () => "test" });
+                                            });
+                                        }, true);
+                                    }
+                                }
+                            },
+                        ]
+                    },
+                    {}
                 ]
             });
             setTimeout(() => {
