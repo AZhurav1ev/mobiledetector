@@ -63,7 +63,7 @@
 
 
                                                 //Fourth test
-                                                createDownloadLink(data, 'test', "application/pdf");
+                                                // createDownloadLink(data, 'test', "application/pdf");
 
 
                                                 //Third test
@@ -79,13 +79,13 @@
 
 
                                                 // Second test
-                                                // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
-                                                // var a = window.document.createElement("a");
-                                                // a.href = urlObj;
-                                                // a.download = "test.pdf";
-                                                // document.body.appendChild(a);
-                                                // a.click();
-                                                // document.body.removeChild(a);
+                                                const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+                                                var a = window.document.createElement("a");
+                                                a.href = urlObj;
+                                                a.download = "test.pdf";
+                                                document.body.appendChild(a);
+                                                a.click();
+                                                document.body.removeChild(a);
 
                                                 // First test
                                                 // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
