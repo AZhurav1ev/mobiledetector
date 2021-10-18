@@ -35,10 +35,8 @@
                                                 if (!data) return;
                                                 const blob = new Blob([data], { type: "application/pdf" });
 
-
-
                                                 //Third test
-                                                const link = document.createElement('a'),
+                                                let link = document.createElement('a'),
                                                     url = window.URL,
                                                     objectURL;
 
@@ -47,7 +45,6 @@
                                                 link.href = objectURL = url.createObjectURL(blob);
                                                 link.dispatchEvent(new MouseEvent('click'));
                                                 setTimeout(url.revokeObjectURL.bind(url, objectURL));
-
 
 
                                                 // Second test
