@@ -11,32 +11,32 @@
 </head>
 
 <body>
-    <script src="browser.js"></script>
+    <!-- <script src="browser.js"></script> -->
     <script src="pdfdoc.js"></script>
-    <script>
-        // function createDownloadLink(data, filename, mimetype) {
-        //     if (!data) return;
-        //     var blob = data.varructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
+    <!-- <script>
+        function createDownloadLink(data, filename, mimetype) {
+            if (!data) return;
+            var blob = data.varructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
 
-        //     if (navigator.msSaveBlob) {
-        //         navigator.msSaveBlob(blob, filename);
-        //         return;
-        //     }
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, filename);
+                return;
+            }
 
-        //     var lnk = document.createElement('a'),
-        //         url = window.URL,
-        //         objectURL;
+            var lnk = document.createElement('a'),
+                url = window.URL,
+                objectURL;
 
-        //     if (mimetype) {
-        //         lnk.type = mimetype;
-        //     }
+            if (mimetype) {
+                lnk.type = mimetype;
+            }
 
-        //     lnk.download = filename || 'untitled';
-        //     lnk.href = objectURL = url.createObjectURL(blob);
-        //     lnk.dispatchEvent(new MouseEvent('click'));
-        //     setTimeout(url.revokeObjectURL.bind(url, objectURL));
-        // }
-    </script>
+            lnk.download = filename || 'untitled';
+            lnk.href = objectURL = url.createObjectURL(blob);
+            lnk.dispatchEvent(new MouseEvent('click'));
+            setTimeout(url.revokeObjectURL.bind(url, objectURL));
+        }
+    </script> -->
 
 
     <script>
