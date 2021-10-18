@@ -14,7 +14,7 @@
     <script src="browser.js"></script>
     <script src="pdfdoc.js"></script>
     <script>
-        function iosDownload(data, filename, mimetype) {
+        function createDownloadLink(data, filename, mimetype) {
             if (!data) return;
             var blob = data.constructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
 
@@ -46,13 +46,54 @@
                     {},
                     {
                         rows: [
-                            { template: `version 703 v1.5`, autoheight: true },
+                            { template: `version 703 v1.2`, autoheight: true },
                             { view: "pdfbar", id: "toolbar" },
                             {
                                 view: "pdfviewer",
                                 id: "pdf",
                                 toolbar: "toolbar",
+                                on: {
+                                    onAfterLoad() {
+                                        const downloadButton = $$("toolbar").$view.querySelector('.webix_scroll_cont').lastChild;
+                                        webix.event(downloadButton, 'click', (e) => {
+                                            e.stopImmediatePropagation();
+                                            $$("pdf").$pdfDoc.getData().then((data) => {
+                                                if (!data) return;
+                                                const blob = new Blob([data], { type: "application/pdf" });
 
+
+                                                //Fourth test
+                                                createDownloadLink(data, 'test', "application/pdf");
+
+
+                                                //Third test
+                                                // let link = document.createElement('a'),
+                                                //     url = window.URL,
+                                                //     objectURL;
+
+                                                // link.type = "application/pdf";
+                                                // link.download = 'test';
+                                                // link.href = objectURL = url.createObjectURL(blob);
+                                                // link.dispatchEvent(new MouseEvent('click'));
+                                                // setTimeout(url.revokeObjectURL.bind(url, objectURL));
+
+
+                                                // Second test
+                                                // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+                                                // var a = window.document.createElement("a");
+                                                // a.href = urlObj;
+                                                // a.download = "test.pdf";
+                                                // document.body.appendChild(a);
+                                                // a.click();
+                                                // document.body.removeChild(a);
+
+                                                // First test
+                                                // const urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
+                                                // multiDownload([urlObj], { rename: () => "test" });
+                                            });
+                                        }, true);
+                                    }
+                                }
                             },
                         ]
                     },
