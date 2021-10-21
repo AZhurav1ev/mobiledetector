@@ -14,13 +14,13 @@
 <body>
     <script src="./isMobile.js"></script>
     <script>
-         webix.ui({
+        webix.ui({
             rows: [
                 {},
-                {template: 'version 1.4'},
+                { template: "<b>version 1.5</b>", autoheight: true },
                 {
                     view: "template",
-                    template: ({ device, model = null }) => `You're using ${device || "unknown device"} ${model ? ", model " + model : ""}`,
+                    template: ({ device }) => `You're using ${device || "unknown device"}`,
                     on: {
                         onAfterRender: webix.once(function () {
                             const mobile = isMobile({
@@ -29,7 +29,7 @@
                             });
 
                             webix.message(`is mobile: ${mobile}`)
-
+                            mobile ? this.setValues({ device: "mobile device" }) : this.setValues({ device: "not mobile device" })
 
                             // iPad > 13 isn't detecting
                             // const md = new MobileDetect(window.navigator.userAgent);
@@ -38,8 +38,6 @@
                             // } else {
                             //     return this.setValues({ device: "not mobile device" });
                             // }
-
-
                         })
                     }
                 },
