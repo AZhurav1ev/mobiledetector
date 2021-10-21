@@ -16,20 +16,28 @@
          webix.ui({
             rows: [
                 {},
-                {template: 'version 1.3'},
+                {template: 'version 1.4'},
                 {
                     view: "template",
                     template: ({ device, model = null }) => `You're using ${device || "unknown device"} ${model ? ", model " + model : ""}`,
                     on: {
                         onAfterRender: webix.once(function () {
-                            webix.message(`Touch points: ${window.navigator.maxTouchPoints}`)
-                            webix.message(`Navigator platform: ${window.navigator.platform}`)
-                            const md = new MobileDetect(window.navigator.userAgent);
-                            if (md.mobile()) {
-                                return this.setValues({ device: "mobile device", model: md.phone() || md.tablet() });
-                            } else {
-                                return this.setValues({ device: "not mobile device" });
-                            }
+                            const mobile = isMobile({
+                                tablet: true,
+                                featureDetect: true
+                            });
+
+                            webix.message(`is mobile: ${mobile}`)
+
+
+                            // iPad > 13 isn't detecting
+                            // const md = new MobileDetect(window.navigator.userAgent);
+                            // if (md.mobile()) {
+                            //     return this.setValues({ device: "mobile device", model: md.phone() || md.tablet() });
+                            // } else {
+                            //     return this.setValues({ device: "not mobile device" });
+                            // }
+
 
                         })
                     }
