@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./codebase/webix.min.js"></script>
     <link rel="stylesheet" href="./codebase/webix.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.5/mobile-detect.min.js"></script>
     <title>Mobile Detector</title>
 </head>
 
@@ -27,17 +26,8 @@
                                 tablet: true,
                                 featureDetect: true
                             });
-
                             webix.message(`is mobile: ${mobile}`)
                             mobile ? this.setValues({ device: "mobile device" }) : this.setValues({ device: "not mobile device" })
-
-                            // iPad > 13 isn't detecting
-                            // const md = new MobileDetect(window.navigator.userAgent);
-                            // if (md.mobile()) {
-                            //     return this.setValues({ device: "mobile device", model: md.phone() || md.tablet() });
-                            // } else {
-                            //     return this.setValues({ device: "not mobile device" });
-                            // }
                         })
                     }
                 },
