@@ -22,7 +22,8 @@
                     template: ({ device, model = null }) => `You're using ${device || "unknown device"} ${model ? ", model " + model : ""}`,
                     on: {
                         onAfterRender: webix.once(function () {
-                            webix.message(window.navigator.maxTouchPoints)
+                            webix.message(`Touch points: ${window.navigator.maxTouchPoints}`)
+                            webix.message(`Navigator platform: ${window.navigator.platform}`)
                             const md = new MobileDetect(window.navigator.userAgent);
                             if (md.mobile()) {
                                 return this.setValues({ device: "mobile device", model: md.phone() || md.tablet() });
