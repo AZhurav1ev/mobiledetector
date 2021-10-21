@@ -5,105 +5,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./codebase/webix.min.js"></script>
+    <script src="./codebase/webix.js"></script>
     <link rel="stylesheet" href="./codebase/webix.min.css">
-    <title>Pdf download test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.5/mobile-detect.min.js"></script>
+    <title>Responsive pager group</title>
 </head>
 
 <body>
-    <!-- <script src="browser.js"></script> -->
-    <script src="pdfdoc.js"></script>
-    <!-- <script>
-        function createDownloadLink(data, filename, mimetype) {
-            if (!data) return;
-            var blob = data.varructor !== Blob ? new Blob([data], { type: mimetype || 'application/octet-stream' }) : data;
-
-            if (navigator.msSaveBlob) {
-                navigator.msSaveBlob(blob, filename);
-                return;
-            }
-
-            var lnk = document.createElement('a'),
-                url = window.URL,
-                objectURL;
-
-            if (mimetype) {
-                lnk.type = mimetype;
-            }
-
-            lnk.download = filename || 'untitled';
-            lnk.href = objectURL = url.createObjectURL(blob);
-            lnk.dispatchEvent(new MouseEvent('click'));
-            setTimeout(url.revokeObjectURL.bind(url, objectURL));
-        }
-    </script> -->
-
-
+    <script src="data.js"></script>
     <script>
-        webix.ready(function () {
-            webix.ui({
-                cols: [
-                    {},
-                    {
-                        rows: [
-                            { template: "version 703 v1.2", autoheight: true },
-                            { view: "pdfbar", id: "toolbar" },
-                            {
-                                view: "pdfviewer",
-                                id: "pdf",
-                                toolbar: "toolbar",
-                                on: {
-                                    onAfterLoad() {
-                                        var downloadButton = $$("toolbar").$view.querySelector('.webix_scroll_cont').lastChild;
-                                        webix.event(downloadButton, 'click', (e) => {
-                                            e.stopImmediatePropagation();
-                                            $$("pdf").$pdfDoc.getData().then((data) => {
-                                                if (!data) return;
-                                                var blob = new Blob([data], { type: "application/pdf" });
+        webix.ui({
+            rows: [
+                {},
+                {
+                    view: "template",
+                    template: ({ device, model = null }) => `You're using ${device || "unknown device"} ${model ? ", model " + model : ""}`,
+                    on: {
+                        onAfterRender() {
+                            const md = new MobileDetect(window.navigator.userAgent);
+                            if (md.mobile()) {
+                                return this.setValues({ device: "mobile device", model: md.phone() || md.tablet() });
+                            } else {
+                                return this.setValues({ device: "not mobile device" });
+                            }
 
-
-                                                //Fourth test
-                                                // createDownloadLink(data, 'test', "application/pdf");
-
-
-                                                //Third test
-                                                // let link = document.createElement('a'),
-                                                //     url = window.URL,
-                                                //     objectURL;
-
-                                                // link.type = "application/pdf";
-                                                // link.download = 'test';
-                                                // link.href = objectURL = url.createObjectURL(blob);
-                                                // link.dispatchEvent(new MouseEvent('click'));
-                                                // setTimeout(url.revokeObjectURL.bind(url, objectURL));
-
-
-                                                // Second test
-                                                var urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
-                                                var a = window.document.createElement("a");
-                                                a.href = urlObj;
-                                                a.download = "test.pdf";
-                                                document.body.appendChild(a);
-                                                a.click();
-                                                document.body.removeChild(a);
-
-                                                // First test
-                                                // var urlObj = window.URL.createObjectURL(blob, { type: "application/pdf" });
-                                                // multiDownload([urlObj], { rename: () => "test" });
-                                            });
-                                        }, true);
-                                    }
-                                }
-                            },
-                        ]
-                    },
-                    {}
-                ]
-            });
-            setTimeout(() => {
-                $$("pdf").parse({ "data": atob(pdfDoc) });
-            }, 100);
+                        }
+                    }
+                },
+                {}
+            ]
         });
+
     </script>
 </body>
 
